@@ -24,6 +24,8 @@ let isPlayerTurn = ref(false)
 let latestGuess = 0
 let adv_guess = ref(0)
 
+let guesses = ref(0)
+
 const isDisabled = ref(false);
 let game_final_status = ref('')
 
@@ -56,9 +58,11 @@ watch(receivedMessage, (newVal) => {
         guessExists.value = true
         guessedNumbers.value.push({ "number": latestGuess, "guessed": msg.guessed })
         isPlayerTurn.value = false
+        guesses.value += 1
     } else if (msg.event == "game_finished") {
         console.log("Game finished", msg.isGameWon)
         if (msg.isGameWon == true) {
+            guesses.value += 1
             game_final_status.value = "You won!"
         } else {
             game_final_status.value = "You lost :("
@@ -125,6 +129,7 @@ function guessNumber(number) {
                 </div>
                 <div class="modal-body">
                     Stats:
+                    You had {{ guesses }} guesses about the number
                 </div>
                 <div class="modal-footer">
                     <button @click="returnToMenu" type="button" class="btn btn-primary" data-bs-dismiss="modal">Return to

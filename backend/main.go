@@ -192,7 +192,6 @@ func handleGameLogic(code string, guess string, player string) {
 	var numbers_guessed int32 = 0
 	for idx, _ := range player_number {
 		if player_number[idx] == guess[idx] {
-			log.Println(player_number[idx], guess[idx])
 			numbers_guessed += 1
 		}
 	}
@@ -211,9 +210,7 @@ func handleGameLogic(code string, guess string, player string) {
 		notifyPlayer(lobby, message, waiting_player_idx)
 
 		// delete session data
-		fmt.Println(lobbies)
 		delete(lobbies, code)
-		fmt.Println(lobbies)
 
 		return
 	}
