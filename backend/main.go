@@ -6,7 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -28,14 +27,7 @@ var lobbies = make(map[string]Lobby)
 
 var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
-		hostParts := strings.Split(r.Host, ":")
-		ipAddress := hostParts[0]
-
-		allowedOrigins := map[string]bool{
-			"127.0.0.1": true,
-			"localhost": true,
-		}
-		return allowedOrigins[ipAddress]
+		return true
 	},
 }
 
